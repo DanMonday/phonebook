@@ -1,7 +1,5 @@
 import { Link, Route, Routes } from "react-router-dom";
-import { lazy, Suspense, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { currentUserThunk } from "./redux/userReducer";
+import { lazy, Suspense } from "react";
 
 const Home = lazy(() => import('./pages/Home'))
 const Login = lazy(() => import('./pages/Login'))

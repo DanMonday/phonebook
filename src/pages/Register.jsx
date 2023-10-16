@@ -1,41 +1,49 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { registerThunk } from "../redux/userReducer";
+import { useNavigate } from 'react-router-dom';
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { setUser } from "../redux/userSlice";
+
 
 const Register = () => {
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
+    
     const handleSubmit = evt =>{
         evt.preventDefault();
-
         const children = evt.currentTarget.elements
-
-        const name = children.userName.value
         const email = children.userEmail.value
         const password = children.userPassword.value
 
-        console.log(name)
+        const auth = getAuth()
+        createUserWithEmailAndPassword(auth, email, password)
+        .then(({user}) => {
+            console.log(user)
+            dispatch(setUser({
+                email: user.email,
+                id: user.uid,
+                token: user.accessToken
+            }))
+            navigate('/');
+
+        })
+        .catch(console.error)
+
         console.log(email)
         console.log(password)
-
-        dispatch(registerThunk({ name, email, password }))
-    }
+}
 
     return(
     <div>
         <h1>Register Account</h1>
         <form onSubmit={handleSubmit}>
             <label>
-                <p>Name</p>
-                <input name="userName" type="text" required/>
-            </label>
-            <label>
                 <p>Email</p>
                 <input name="userEmail" type="email" required/>
             </label>
             <label>
                 <p>Password</p>
-                <input name="userPassword" type="password" minLength={4} required/>
+                <input name="userPassword" type="password" required/>
             </label>
             <br/>
             <button type="submit">Sign Up</button>
@@ -44,5 +52,4 @@ const Register = () => {
     )
 } 
 
-export default Register
-
+export default Register;

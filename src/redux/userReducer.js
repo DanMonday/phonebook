@@ -1,10 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { currentUserRequest, registerRequest } from "../service/api";
+import { registerRequest } from "../service/api";
 
 export const registerThunk = createAsyncThunk(
     'user/registerThunk', 
     async (formData, thunkAPI) => {
     try{
+        console.log(`${formData}`)
         const data = await registerRequest(formData)
         console.log(data);
         // return data
