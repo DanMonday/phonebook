@@ -1,6 +1,7 @@
 import { Link, Route, Routes } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import { useSelector } from "react-redux";
+import LogoutButton from "./pages/LogoutButton";
 
 const Home = lazy(() => import('./pages/Home'))
 const Login = lazy(() => import('./pages/Login'))
@@ -15,6 +16,7 @@ function App() {
         {isLoggedIn ? (
           <nav>
             <Link to='/'>Home</Link>
+            <LogoutButton />
           </nav>
         ) : (
           <nav>
