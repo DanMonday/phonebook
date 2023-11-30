@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { changePage } from "../redux/userSlice";
+import { setUser } from "../redux/userSlice";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -24,7 +24,11 @@ const Login = () => {
         const auth = getAuth()
         signInWithEmailAndPassword(auth, email, password)
         .then(({ user }) => {
-            dispatch(changePage())
+            dispatch(setUser({
+                email: user.email,
+                id: user.uid,
+                token: user.accessToken
+            }))
             console.log(user)
             navigate('/');
         })

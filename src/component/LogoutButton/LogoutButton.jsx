@@ -1,12 +1,11 @@
 import React from "react";
-import { removeUser } from "../redux/userSlice";
+import { removeUser } from "../../redux/userSlice";
 import { useDispatch } from "react-redux";
 
 const LogoutButton = () => {
     const dispatch = useDispatch();
 
     const handleLogout = () => {
-        // Тут нужно добавить логику для выхода
         dispatch(removeUser());
         console.log("Logout logic");
       };
